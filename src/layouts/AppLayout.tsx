@@ -34,7 +34,7 @@ export const AppLayout = ({ children }: IAppLayoutProps) => {
     <div
       className={`${backgroundColor} text-white w-full flex flex-col items-center sm:w-auto sm:rounded-3xl sm:flex-row sm:p-5 sm:items-start transition-colors animate-fadeIn relative`}
     >
-      <div className='p-4 mt-6 mr-6'>
+      <div className='p-4 mt-6 sm:mr-6'>
         <User />
         <div className='hidden sm:block'>
           <hr className='my-6 border-gray-600' />
