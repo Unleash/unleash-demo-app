@@ -59,13 +59,13 @@ export const ExpensesTable = ({ color }: IExpensesTableProps) => {
             <th className='text-left px-6 py-3 text-slate-600 font-semibold text-xs'>
               Payment
             </th>
-            <th className='px-6 py-3 text-slate-600 font-semibold text-xs'>
+            <th className='px-6 py-3 text-slate-600 font-semibold text-xs hidden lg:table-cell'>
               Amount
             </th>
             <th className='px-6 py-3 text-slate-600 font-semibold text-xs hidden lg:table-cell'>
               Category
             </th>
-            <th className='px-6 py-3 text-slate-600 font-semibold text-xs hidden lg:table-cell'>
+            <th className='px-6 py-3 text-slate-600 font-semibold text-xs'>
               Budget
             </th>
           </tr>
@@ -95,7 +95,7 @@ export const ExpensesTable = ({ color }: IExpensesTableProps) => {
                     </div>
                   </div>
                 </td>
-                <td className='px-6 py-4 text-center'>
+                <td className='px-6 py-4 text-center hidden lg:table-cell'>
                   <div className='text-sm text-slate-900'>{expense.value}</div>
                 </td>
                 <td className='px-6 py-4 text-center hidden lg:table-cell'>
@@ -109,7 +109,7 @@ export const ExpensesTable = ({ color }: IExpensesTableProps) => {
                     {expense.company.category.name}
                   </div>
                 </td>
-                <td className='px-6 py-4 text-center hidden lg:table-cell'>
+                <td className='px-6 py-4 text-center'>
                   <ProgressBar value={expense.budget} color={color} />
                 </td>
               </tr>
