@@ -12,7 +12,7 @@ const hexToRgb = (hexValue: string): number[] => {
   return [r, g, b]
 }
 
-export const getColor = (colorValue = 'black'): IColor => {
+export const getColor = (colorValue = '#6C65E5'): IColor => {
   let r, g, b
   if (colorValue.startsWith('#')) {
     ;[r, g, b] = hexToRgb(colorValue)
@@ -31,8 +31,8 @@ export const getColor = (colorValue = 'black'): IColor => {
   }
   const rgb = `${r}, ${g}, ${b}`
   return {
-    light: `rgba(${rgb}, .05)`,
+    light: `rgba(${rgb}, .1)`,
     main: `rgba(${rgb}, .5)`,
-    dark: `rgba(${rgb}, .8)`
+    dark: `rgba(${rgb}, 1)`
   }
 }
