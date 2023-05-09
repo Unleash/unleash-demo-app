@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react'
-import avatar from '/avatar.jpeg'
+import avatar from '../assets/unleash-white.svg'
 
 export const User = () => {
   const userId = localStorage.getItem('userId')
