@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react'
+import { toast } from 'react-hot-toast'
 import avatar from '../assets/unleash-white.svg'
 
 export const User = () => {
@@ -6,6 +7,7 @@ export const User = () => {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(userId!)
+    toast.success('Copied to clipboard', { position: 'bottom-center' })
   }
 
   return (
