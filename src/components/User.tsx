@@ -7,7 +7,7 @@ export const User = () => {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(userId!)
-    toast.success('Copied to clipboard', { position: 'bottom-center' })
+    toast.success('userId copied to clipboard')
   }
 
   return (
@@ -27,7 +27,6 @@ export const User = () => {
         {userId}
         <Icon icon='ic:round-content-copy' className='ml-2' />
       </p>
-      <p className='text-sm text-center'>Click to copy to your clipboard</p>
       <p className='text-sm text-center'>
         You will need the userId for some of the steps of the demo
       </p>

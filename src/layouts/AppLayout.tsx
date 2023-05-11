@@ -1,4 +1,5 @@
 import { useFlag, useFlagsStatus } from '@unleash/proxy-client-react'
+import { Toaster } from 'react-hot-toast'
 import { User } from '../components/User'
 import { ChatBot } from '../components/ChatBot'
 
@@ -34,6 +35,12 @@ export const AppLayout = ({ children }: IAppLayoutProps) => {
     <div
       className={`${backgroundColor} text-white w-full flex flex-col items-center sm:w-auto sm:rounded-3xl sm:flex-row sm:p-5 sm:items-start transition-colors animate-fadeIn relative`}
     >
+      <Toaster
+        position='top-left'
+        containerStyle={{
+          position: 'absolute'
+        }}
+      />
       <div className='p-4 mt-6 sm:mr-6'>
         <User />
         <div className='hidden sm:block'>

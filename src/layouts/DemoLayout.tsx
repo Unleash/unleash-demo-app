@@ -1,4 +1,3 @@
-import { Toaster } from 'react-hot-toast'
 import { Header } from '../components/Header'
 
 interface IDemoLayoutProps {
@@ -8,7 +7,6 @@ interface IDemoLayoutProps {
 export const DemoLayout = ({ children }: IDemoLayoutProps) => {
   return (
     <>
-      <Toaster />
       <Header />
       <div className='bg-gray-50 h-full sm:h-[calc(100%-48px)] flex justify-center sm:items-center max-h-screen overflow-hidden'>
         {children}
