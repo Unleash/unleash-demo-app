@@ -14,9 +14,9 @@ if (!userId) {
 }
 
 const config: IConfig = {
-  url: 'https://sandbox.getunleash.io/nuno/api/frontend',
+  url: 'https://app.unleash-hosted.com/demo/api/frontend',
   clientKey:
-    'demo-app:dev.f2223d96498eb61d2810e1951fd107e9fc663b54e1ac4f1543673596',
+    'demo-app:dev.bf8d2a449a025d1715a28f218dd66a40ef4dcc97b661398f7e05ba67',
   refreshInterval: 2,
   appName: 'unleash-demo-app',
   context: { userId }
