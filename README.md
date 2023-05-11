@@ -8,7 +8,7 @@ Get started with the following [pnpm](https://pnpm.io/) commands:
 
 ```bash
 # Install dependencies
-pnpm
+pnpm i
 
 # Start development server
 pnpm dev
