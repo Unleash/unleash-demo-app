@@ -17,7 +17,7 @@ const config: IConfig = {
   url: 'https://app.unleash-hosted.com/demo/api/frontend',
   clientKey:
     'demo-app:dev.bf8d2a449a025d1715a28f218dd66a40ef4dcc97b661398f7e05ba67',
-  refreshInterval: 5,
+  refreshInterval: 2,
   appName: 'unleash-demo-app',
   context: { userId }
 }
