@@ -1,6 +1,5 @@
 import { Icon } from '@iconify/react'
 import { toast } from 'react-hot-toast'
-import avatar from '../assets/unleash-white.svg'
 
 export const User = () => {
   const userId = localStorage.getItem('userId')
@@ -13,7 +12,7 @@ export const User = () => {
   return (
     <div className='flex flex-col items-center gap-2 w-full sm:max-w-xs'>
       <img
-        src={avatar}
+        src='/unleash.svg'
         alt='User profile picture'
         className='h-20 w-20 rounded-xl'
       />
