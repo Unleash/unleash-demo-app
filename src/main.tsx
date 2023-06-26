@@ -3,7 +3,12 @@ import ReactDOM from 'react-dom/client'
 import { App } from './App.tsx'
 import './index.css'
 
-import { FlagProvider, IConfig } from '@unleash/proxy-client-react'
+import {
+  FlagProvider,
+  IConfig,
+  IContext,
+  UnleashClient
+} from '@unleash/proxy-client-react'
 import { random } from './util/random.ts'
 
 let userId = localStorage.getItem('userId')
@@ -19,12 +24,34 @@ const config: IConfig = {
     'demo-app:dev.bf8d2a449a025d1715a28f218dd66a40ef4dcc97b661398f7e05ba67',
   refreshInterval: 2,
   appName: 'unleash-demo-app',
-  context: { userId }
+  context: { userId },
+  impressionDataAll: true
 }
+
+const client = new UnleashClient(config)
+
+interface IUnleashImpressionEvent {
+  context: IContext
+  enabled: boolean
+  featureName: string
+  eventType: string
+  impressionData?: boolean
+}
+
+client.on('impression', (event: IUnleashImpressionEvent) => {
+  const data = new Map<string, string>(Object.entries(event))
+  Object.entries(event.context).forEach(([key, value]) => {
+    if (value.length > 100) return
+    data.set(`context_${key}`, value)
+  })
+  data.delete('context')
+  console.log(Object.fromEntries(data))
+  gtag('event', `unleash_${event.featureName}`, data)
+})
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <FlagProvider config={config}>
+    <FlagProvider unleashClient={client}>
       <App />
     </FlagProvider>
   </React.StrictMode>
