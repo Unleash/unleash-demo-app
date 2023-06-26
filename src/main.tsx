@@ -39,14 +39,16 @@ interface IUnleashImpressionEvent {
 }
 
 client.on('impression', (event: IUnleashImpressionEvent) => {
-  const data = new Map<string, string>(Object.entries(event))
-  Object.entries(event.context).forEach(([key, value]) => {
-    if (value.length > 100) return
-    data.set(`context_${key}`, value)
+  const { context, featureName, ...rest } = event
+  const data = new Map<string, any>(Object.entries(rest))
+
+  Object.entries(context).forEach(([key, value]) => {
+    if (value.length <= 100) {
+      data.set(`context_${key}`, value)
+    }
   })
-  data.delete('context')
-  console.log(Object.fromEntries(data))
-  gtag('event', `unleash_${event.featureName}`, data)
+
+  gtag('event', `unleash_${event.featureName}`, Object.fromEntries(data))
 })
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
