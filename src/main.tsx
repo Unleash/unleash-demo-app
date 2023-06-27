@@ -6,9 +6,9 @@ import './index.css'
 import {
   FlagProvider,
   IConfig,
-  IContext,
   UnleashClient
 } from '@unleash/proxy-client-react'
+import uaga from '@nunogois/unleash-analytics-ga'
 import { random } from './util/random.ts'
 
 let userId = localStorage.getItem('userId')
@@ -30,28 +30,7 @@ const config: IConfig = {
 
 const client = new UnleashClient(config)
 
-interface IUnleashImpressionEvent {
-  context: IContext
-  enabled: boolean
-  featureName: string
-  eventType: string
-  impressionData?: boolean
-}
-
-client.on('impression', (event: IUnleashImpressionEvent) => {
-  const { context, featureName, ...rest } = event
-  const data = new Map<string, any>(Object.entries(rest))
-
-  Object.entries(context).forEach(([key, value]) => {
-    if (value.length <= 100) {
-      data.set(`context_${key}`, value)
-    }
-  })
-
-  data.set('featureName', featureName)
-
-  gtag('event', `unleash_${event.featureName}`, Object.fromEntries(data))
-})
+client.on('impression', uaga)
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
