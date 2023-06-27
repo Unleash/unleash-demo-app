@@ -48,6 +48,8 @@ client.on('impression', (event: IUnleashImpressionEvent) => {
     }
   })
 
+  data.set('featureName', featureName)
+
   gtag('event', `unleash_${event.featureName}`, Object.fromEntries(data))
 })
 
