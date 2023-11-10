@@ -1,9 +1,13 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@unleash/proxy-client-react':
-    specifier: ^3.5.2
-    version: 3.5.2(unleash-proxy-client@2.4.3)
+    specifier: ^4.1.0
+    version: 4.1.0(unleash-proxy-client@3.2.0)
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -14,8 +18,8 @@ dependencies:
     specifier: ^2.4.1
     version: 2.4.1(csstype@3.1.2)(react-dom@18.2.0)(react@18.2.0)
   unleash-proxy-client:
-    specifier: ^2.4.3
-    version: 2.4.3
+    specifier: ^3.2.0
+    version: 3.2.0
 
 devDependencies:
   '@iconify/react':
@@ -663,12 +667,13 @@ packages:
       eslint-visitor-keys: 3.4.0
     dev: true
 
-  /@unleash/proxy-client-react@3.5.2(unleash-proxy-client@2.4.3):
-    resolution: {integrity: sha512-5Y3sfZadCPmJ3xaXrcIlrYeVVYzz7JQF8zDu9x46Ea2uBM7A5lVpYfdoIVkTnuK6xFoPxyByUGHhSNuH24x1bA==}
+  /@unleash/proxy-client-react@4.1.0(unleash-proxy-client@3.2.0):
+    resolution: {integrity: sha512-4mdHtEDgjFtz7I+fQ5V3gdrDFJVhhymyV2J6ZC9G6xFPjOZGTKdA5ZJDFiHm3N23KeND/NUmdGSKJmz27b0LoQ==}
+    engines: {node: '>=16.0.0'}
     peerDependencies:
-      unleash-proxy-client: ^2.4.3
+      unleash-proxy-client: ^3.2.0
     dependencies:
-      unleash-proxy-client: 2.4.3
+      unleash-proxy-client: 3.2.0
     dev: false
 
   /@vitejs/plugin-react-swc@3.3.0(vite@4.3.4):
@@ -1860,11 +1865,11 @@ packages:
     hasBin: true
     dev: true
 
-  /unleash-proxy-client@2.4.3:
-    resolution: {integrity: sha512-ILJIHNSeh7ajHczemNE19Rl3NpVU3voFouYIgWCbJd+OhuJ9elfpuD1LF5yucEJq8AuWKkEM2AzUFFOTiv/2Sw==}
+  /unleash-proxy-client@3.2.0:
+    resolution: {integrity: sha512-y9iCRCytxQCej6HlXecGu63ul1Wz6xklXOs+vuaPbqtj4NDGT6IThUvP3h7m5pW+IIxR99hnkVS1FICt1FT3yQ==}
     dependencies:
       tiny-emitter: 2.1.0
-      uuid: 8.3.2
+      uuid: 9.0.1
     dev: false
 
   /update-browserslist-db@1.0.11(browserslist@4.21.5):
@@ -1888,8 +1893,8 @@ packages:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: true
 
-  /uuid@8.3.2:
-    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+  /uuid@9.0.1:
+    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
     dev: false
 
