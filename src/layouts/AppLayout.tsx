@@ -41,7 +41,7 @@ export const AppLayout = ({ children }: IAppLayoutProps) => {
           position: 'absolute'
         }}
       />
-      <div className='p-4 mt-6 sm:mr-6'>
+      <div className='p-4 mt-2 sm:mt-6 sm:mr-6'>
         <User />
         <div className='hidden sm:block'>
           <hr className='my-6 border-gray-600' />
@@ -70,7 +70,7 @@ export const AppLayout = ({ children }: IAppLayoutProps) => {
           </ul>
         </div>
       </div>
-      <div className='bg-white text-slate-950 w-full p-6 rounded-t-3xl sm:rounded-3xl'>
+      <div className='bg-white text-slate-950 w-full p-6 rounded-t-3xl overflow-hidden flex flex-col gap-4 sm:rounded-3xl sm:gap-6'>
         {children}
       </div>
       {step3 && <ChatBot />}

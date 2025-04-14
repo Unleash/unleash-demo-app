@@ -13,7 +13,7 @@ export const ExpensesChart = ({ color }: IExpensesChartProps) => {
     const month = new Date(2023, m, 1).toLocaleString('default', {
       month: 'short'
     })
-    const value = random(64, 10)
+    const value = random(72, 10)
 
     months.push({
       label: month,
@@ -23,7 +23,7 @@ export const ExpensesChart = ({ color }: IExpensesChartProps) => {
 
   return (
     <div
-      className='rounded-xl border pb-5 px-6 flex flex-row items-end gap-2 animate-fadeIn h-32'
+      className='rounded-xl border pb-3 px-6 flex flex-row items-end gap-2 animate-fadeIn h-24 min-h-[96px] sm:h-32 sm:min-h-[128px]'
       style={{ borderColor: color.dark }}
     >
       {months.map((month, index) => {
