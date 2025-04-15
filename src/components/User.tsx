@@ -14,9 +14,9 @@ export const User = () => {
       <img
         src='/unleash.svg'
         alt='User profile picture'
-        className='h-20 w-20 rounded-xl'
+        className='h-14 w-14 rounded-xl sm:h-20 sm:w-20'
       />
-      <p className='text-3xl'>Welcome</p>
+      <p className='text-xl sm:text-3xl'>Welcome</p>
       <p
         className='flex flex-row items-center bg-unleash text-white px-4 py-2 rounded cursor-pointer'
         title='Click to copy the userId to your clipboard'
@@ -26,7 +26,7 @@ export const User = () => {
         {userId}
         <Icon icon='ic:round-content-copy' className='ml-2' />
       </p>
-      <p className='text-sm text-center'>
+      <p className='text-xs text-center sm:text-sm'>
         You will need the userId for some of the steps of the demo
       </p>
     </div>

@@ -12,7 +12,7 @@ export const Expenses = () => {
 
   return (
     <>
-      <div className='flex flex-row gap-4 items-center justify-between mb-6'>
+      <div className='flex flex-row gap-4 items-center justify-between'>
         <div
           className='w-10 h-10 rounded-xl inline-flex items-center justify-center text-2xl flex-shrink-0'
           style={{ backgroundColor: color.light, color: color.dark }}

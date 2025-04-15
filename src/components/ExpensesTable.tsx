@@ -32,7 +32,7 @@ export const ExpensesTable = ({ color }: IExpensesTableProps) => {
   }
 
   return (
-    <div className='mt-6 rounded-xl border overflow-auto sm:max-h-[40vh]'>
+    <div className='rounded-xl border overflow-auto h-full sm:max-h-[40vh]'>
       <div className='bg-white rounded-t-xl px-6 py-4 flex flex-row items-center justify-between font-bold text-lg sticky top-0'>
         <div className='flex flex-row items-center gap-2'>
           {currentMonthName}
