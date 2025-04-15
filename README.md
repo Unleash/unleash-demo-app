@@ -4,17 +4,17 @@ This project is used as a demo app that is runtime-controlled (feature toggled) 
 
 ## Development
 
-Get started with the following [pnpm](https://pnpm.io/) commands:
+Get started with the following [yarn](https://yarnpkg.com/) commands:
 
 ```bash
 # Install dependencies
-pnpm i
+yarn
 
 # Start development server
-pnpm dev
+yarn dev
 ```
 
-Alternatively, use a different package manager like `yarn` or `npm`.
+Alternatively, use a different package manager like `npm` or `pnpm`.
 
 ## Uses
 
