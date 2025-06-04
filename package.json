@@ -5,15 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:backend": "cd backend && npm run dev",
-    "dev:full": "concurrently \"npm run dev\" \"npm run dev:backend\"",
     "build": "tsc && vite build",
-    "build:backend": "cd backend && npm run build",
-    "build:full": "npm run build && npm run build:backend",
-    "start": "cd backend && npm run start",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "install:backend": "cd backend && npm install"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@unleash/proxy-client-react": "^4.1.0",
