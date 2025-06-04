@@ -5,6 +5,7 @@ import {fileURLToPath} from 'url';
 import cors from 'cors';
 import {initialize} from 'unleash-client';
 import {handleChatRequest} from './chatService.js';
+import { metricsRegistry } from './metricsService.js';
 
 // Get the directory name for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -49,6 +50,16 @@ app.post('/api/chat', handleChatRequest(unleash));
 // This enables client-side routing
 app.get('/api/flag/variant', (req, res) => {
   res.json(unleash.getVariant('ai-chat-variant'));
+});
+
+// Metrics endpoint for Prometheus
+app.get('/metrics', async (req, res) => {
+  try {
+    res.set('Content-Type', metricsRegistry.contentType);
+    res.end(await metricsRegistry.metrics());
+  } catch (err) {
+    res.status(500).end(err);
+  }
 });
 
 app.get('*', (req, res) => {
