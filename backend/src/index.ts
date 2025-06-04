@@ -1,6 +1,23 @@
+console.log('Starting server...');
 import express from 'express';
 import path from 'path';
+import {fileURLToPath} from 'url';
 import cors from 'cors';
+import {initialize} from 'unleash-client';
+import {handleChatRequest} from './chatService.js';
+
+// Get the directory name for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Initialize Unleash client
+const unleash = initialize({
+  url: process.env.UNLEASH_URL || 'https://app.unleash-hosted.com/demo/api/',
+  appName: 'unleash-demo-app',
+  customHeaders: {
+    Authorization: process.env.UNLEASH_API_KEY || 'expensechat:production.9df64163731c7d23782bf560c2c66b161bbed6d943080a6e2cd35c7e',
+  },
+});
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -25,8 +42,15 @@ app.get('/api/info', (req, res) => {
   });
 });
 
+// AI Chat endpoint
+app.post('/api/chat', handleChatRequest(unleash));
+
 // For any other GET request, send the index.html file
 // This enables client-side routing
+app.get('/api/flag/variant', (req, res) => {
+  res.json(unleash.getVariant('ai-chat-variant'));
+});
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(distPath, 'index.html'));
 });
