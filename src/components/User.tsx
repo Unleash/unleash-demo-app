@@ -17,7 +17,7 @@ export const User = () => {
         className='h-14 w-14 rounded-xl sm:h-20 sm:w-20'
       />
       <p className='text-xl sm:text-3xl'>Welcome</p>
-      <p
+      <button
         className='flex flex-row items-center bg-unleash text-white px-4 py-2 rounded cursor-pointer'
         title='Click to copy the userId to your clipboard'
         onClick={copyToClipboard}
@@ -25,7 +25,7 @@ export const User = () => {
         <strong className='mr-1'>userId:</strong>
         {userId}
         <Icon icon='ic:round-content-copy' className='ml-2' />
-      </p>
+      </button>
       <p className='text-xs text-center sm:text-sm'>
         You will need the userId for some of the steps of the demo
       </p>

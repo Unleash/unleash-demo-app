@@ -2,6 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
+}
+
+@layer utilities {
+  .chat-message {
+    @apply relative inline-block break-words border rounded p-1.5 whitespace-pre-wrap max-w-[75%];
+  }
+
+  .chat-message-user::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    right: -10px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px;
+    border-color: transparent;
+  }
+
+  .chat-message-assistant::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: -10px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px;
+    border-color: transparent;
+  }
+
+  .shadow-popup {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 4px 16px 32px rgba(0, 0, 0, 0.2),
+      0 0 1px rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(4px);
+  }
 }
