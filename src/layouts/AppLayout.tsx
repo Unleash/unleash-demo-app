@@ -12,10 +12,7 @@ interface IAppLayoutProps {
 
 export const AppLayout = ({ children }: IAppLayoutProps) => {
   const { flagsReady, flagsError } = useFlagsStatus()
-  // const chatbotVariant = useVariant('fsDemoApp.chatbot')
-  const chatbotVariant = {
-    name: 'basic'
-  }
+  const chatbotVariant = useVariant('fsDemoApp.chatbot')
 
   if (!flagsReady) {
     return null

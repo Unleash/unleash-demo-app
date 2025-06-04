@@ -116,8 +116,8 @@ export const ChatBotB = () => {
           </AIChatMessage>
         ))}
         {loading && (
-          <AIChatMessage from='assistant'>
-            _AI Assistant is typing..._
+          <AIChatMessage className='italic' from='assistant'>
+            AI Assistant is typing...
           </AIChatMessage>
         )}
         <div ref={chatEndRef} />

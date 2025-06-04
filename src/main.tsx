@@ -14,11 +14,14 @@ if (!userId) {
 }
 
 const config: IConfig = {
-  url: 'https://app.unleash-hosted.com/demo/api/frontend',
+  url:
+    import.meta.env.VITE_UNLEASH_FRONTEND_API_URL ||
+    'https://app.unleash-hosted.com/demo/api/frontend',
   clientKey:
-    'demo-app:dev.bf8d2a449a025d1715a28f218dd66a40ef4dcc97b661398f7e05ba67',
+    import.meta.env.VITE_UNLEASH_FRONTEND_API_KEY ||
+    'unleash-fullstack-demo-app:production.3416d5c4fad0c6eccd5093b19b1c94ade9c9c0cd81c2034704ef9165',
   refreshInterval: 2,
-  appName: 'unleash-demo-app',
+  appName: 'unleash-fullstack-demo-app',
   context: { userId }
 }
 

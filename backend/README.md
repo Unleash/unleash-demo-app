@@ -35,7 +35,7 @@ yarn test-metrics
   - Request body: `{ "message": "your question here" }`
   - Response: `{ "response": "AI response", "variant": "basic|advanced", "executionTimeMs": 123, "costInDollars": 0.02 }`
   - Supports questions about total expenses, expense categories, highest expenses, and spending patterns (advanced variant only)
-- `GET /api/flag/variant` - Returns the current variant of the 'ai-chat-variant' feature flag
+- `GET /api/flag/variant` - Returns the current variant of the 'fsDemoApp.chatbot' feature flag
 - `GET /metrics` - Prometheus metrics endpoint for monitoring chat performance and costs
 
 ## Metrics
@@ -58,13 +58,15 @@ The server can be configured using the following environment variables:
 - `PORT` - The port on which the server will listen (default: 3000)
 - `NODE_ENV` - The environment in which the server is running (default: 'development')
 - `UNLEASH_URL` - The URL of the Unleash server (default: 'https://app.unleash-hosted.com/demo/api/')
-- `UNLEASH_API_KEY` - The API key for the Unleash server (default: 'default:development.unleash-insecure-api-token')
+- `UNLEASH_API_KEY` - The API key for the Unleash server (default: 'unleash-fullstack-demo-app:production.7d1f7105647713d79ee78dee96463f10ab990081f7ac22cf1066feec')
+- `VITE_UNLEASH_FRONTEND_API_URL` - The URL of the Unleash frontend API (default: 'https://app.unleash-hosted.com/demo/api/frontend')
+- `VITE_UNLEASH_FRONTEND_API_KEY` - The API key for the Unleash frontend API (default: 'unleash-fullstack-demo-app:production.3416d5c4fad0c6eccd5093b19b1c94ade9c9c0cd81c2034704ef9165')
 
 ## Feature Flags
 
 The application uses the following feature flags:
 
-- `ai-chat-variant` - Controls which variant of the AI chat to use:
+- `fsDemoApp.chatbot` - Controls which variant of the AI chat to use:
   - When enabled: Uses the advanced AI chat with detailed expense analysis
   - When disabled: Uses the basic AI chat with simple expense information
 
