@@ -1,5 +1,6 @@
 import {Request, Response} from 'express';
 import {Unleash} from 'unleash-client';
+import { recordChatMetrics } from './metricsService.js';
 
 export interface Expense {
   id: number;
@@ -109,11 +110,11 @@ export const generateChatResponse = (unleash: Unleash) => async (message: string
     return base + (Math.random() * 2 - 1) * variation;
   };
 
-  const delayMs = variantName === 'advanced' 
+  const delayMs = variantName === 'basic'
     ? getRandomDelay(500, 200)  // Advanced: 500ms ±200ms - faster
     : getRandomDelay(2000, 500);  // Basic: 2 seconds ±500ms - slower
 
-  const costPerRequest = variantName === 'advanced' ? 0.02 : 0.005; // Advanced is more expensive
+  const costPerRequest = variantName === 'advanced' ? 0.2 : 0.1; // Advanced is more expensive
 
   const startTime = Date.now();
 
@@ -147,6 +148,13 @@ export const handleChatRequest = (unleash: Unleash) => async (req: Request, res:
   }
 
   const chatResponse = await generateChatResponse(unleash)(message);
+
+  // Record metrics for this chat query
+  recordChatMetrics(
+    chatResponse.variant,
+    chatResponse.executionTimeMs,
+    chatResponse.costInDollars
+  );
 
   if (process.env.NODE_ENV !== 'production') {
     res.json(chatResponse);

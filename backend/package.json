@@ -8,11 +8,13 @@
     "build": "tsc",
     "start": "tsx src/index.ts",
     "dev": "tsx watch src/index.ts",
-    "test-chat": "tsc && node test-chat-api.js"
+    "test-chat": "tsc && node test-chat-api.js",
+    "test-metrics": "tsc && node test-metrics.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "prom-client": "^14.2.0",
     "tsx": "4.19.4",
     "unleash-client": "6.6.0"
   },
