@@ -6,20 +6,17 @@ This is the backend service for the Unleash Demo App. It's built with Express an
 
 ```bash
 # Install dependencies
-npm install
+yarn
 ```
 
 ## Available Scripts
 
 ```bash
 # Start development server with hot-reload
-npm run dev
-
-# Build for production
-npm run build
+yarn dev
 
 # Start production server
-npm run start
+yarn start
 ```
 
 ## API Endpoints
