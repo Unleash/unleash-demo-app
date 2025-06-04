@@ -7,7 +7,8 @@
   "scripts": {
     "build": "tsc",
     "start": "tsx src/index.ts",
-    "test-chat": "node test-chat-api.js"
+    "dev": "tsx watch src/index.ts",
+    "test-chat": "tsc && node test-chat-api.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

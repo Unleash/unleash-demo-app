@@ -1,7 +1,6 @@
-import { Request, Response } from 'express';
-import { getVariant } from 'unleash-client';
+import {Request, Response} from 'express';
+import {Unleash} from 'unleash-client';
 
-// Define types for expense data
 export interface Expense {
   id: number;
   category: string;
@@ -9,10 +8,11 @@ export interface Expense {
   date: string;
 }
 
-// Define types for chat response
 export interface ChatResponse {
   response: string;
   variant: string;
+  executionTimeMs: number;
+  costInDollars: number;
 }
 
 // Mock user expense data
@@ -24,7 +24,6 @@ export const userExpenses: Expense[] = [
   { id: 5, category: 'Shopping', amount: 250.30, date: '2023-05-07' }
 ];
 
-// Basic chat response generator
 export function generateBasicChatResponse(message: string, expenses: Expense[]): string {
   const lowerMessage = message.toLowerCase();
 
@@ -42,7 +41,6 @@ export function generateBasicChatResponse(message: string, expenses: Expense[]):
   }
 }
 
-// Advanced chat response generator with more detailed analysis
 export function generateAdvancedChatResponse(message: string, expenses: Expense[]): string {
   const lowerMessage = message.toLowerCase();
 
@@ -51,7 +49,6 @@ export function generateAdvancedChatResponse(message: string, expenses: Expense[
     const average = total / expenses.length;
     return `Your total expenses are $${total.toFixed(2)}, with an average of $${average.toFixed(2)} per transaction.`;
   } else if (lowerMessage.includes('categories')) {
-    // Group expenses by category and calculate total for each
     const categoryTotals = expenses.reduce((acc: Record<string, number>, expense) => {
       if (!acc[expense.category]) {
         acc[expense.category] = 0;
@@ -70,13 +67,11 @@ export function generateAdvancedChatResponse(message: string, expenses: Expense[
     const percentOfTotal = (highest.amount / expenses.reduce((sum, exp) => sum + exp.amount, 0)) * 100;
     return `Your highest expense is $${highest.amount.toFixed(2)} for ${highest.category} on ${highest.date}. This represents ${percentOfTotal.toFixed(1)}% of your total expenses.`;
   } else if (lowerMessage.includes('spending pattern') || lowerMessage.includes('analysis')) {
-    // Sort expenses by date
     const sortedExpenses = [...expenses].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     let response = 'Based on your spending pattern:\n';
     response += `- Your spending started at $${sortedExpenses[0].amount.toFixed(2)} on ${sortedExpenses[0].date}\n`;
     response += `- Your most recent expense was $${sortedExpenses[sortedExpenses.length-1].amount.toFixed(2)} on ${sortedExpenses[sortedExpenses.length-1].date}\n`;
 
-    // Calculate if spending is increasing or decreasing
     const firstHalfAvg = sortedExpenses.slice(0, Math.floor(sortedExpenses.length/2))
       .reduce((sum, exp) => sum + exp.amount, 0) / Math.floor(sortedExpenses.length/2);
     const secondHalfAvg = sortedExpenses.slice(Math.floor(sortedExpenses.length/2))
@@ -94,8 +89,56 @@ export function generateAdvancedChatResponse(message: string, expenses: Expense[
   }
 }
 
-// Handle chat request
-export function handleChatRequest(req: Request, res: Response): void {
+function simulateDelay(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export const generateChatResponse = (unleash: Unleash) => async (message: string): Promise<ChatResponse>  => {
+  // Get the variant from the feature flag
+  const variant = unleash.getVariant('ai-chat-variant');
+  const variantName = variant.name || 'basic';
+
+  // Set delay and cost based on variant
+  // Advanced: faster but more expensive
+  // Basic: slower but cheaper
+
+  // Calculate random delay within the specified range
+  // Advanced: 500ms ±200ms (300ms to 700ms) - faster but more expensive
+  // Basic: 2 seconds ±500ms (1500ms to 2500ms) - slower but cheaper
+  const getRandomDelay = (base: number, variation: number) => {
+    return base + (Math.random() * 2 - 1) * variation;
+  };
+
+  const delayMs = variantName === 'advanced' 
+    ? getRandomDelay(500, 200)  // Advanced: 500ms ±200ms - faster
+    : getRandomDelay(2000, 500);  // Basic: 2 seconds ±500ms - slower
+
+  const costPerRequest = variantName === 'advanced' ? 0.02 : 0.005; // Advanced is more expensive
+
+  const startTime = Date.now();
+
+  // Simulate AI processing delay
+  await simulateDelay(delayMs);
+
+  let response: string;
+
+  if (variantName === 'advanced') {
+    response = generateAdvancedChatResponse(message, userExpenses);
+  } else {
+    response = generateBasicChatResponse(message, userExpenses);
+  }
+
+  const executionTimeMs = Date.now() - startTime;
+
+  return {
+    response,
+    variant: variantName,
+    executionTimeMs,
+    costInDollars: costPerRequest
+  };
+}
+
+export const handleChatRequest = (unleash: Unleash) => async (req: Request, res: Response) => {
   const { message } = req.body;
 
   if (!message) {
@@ -103,22 +146,13 @@ export function handleChatRequest(req: Request, res: Response): void {
     return;
   }
 
-  // Get the variant from the feature flag
-  const variant = getVariant('ai-chat-variant');
-  const variantName = variant.name || 'basic';
+  const chatResponse = await generateChatResponse(unleash)(message);
 
-  let response: string;
-
-  if (variantName === 'advanced') {
-    // Advanced AI chat variant
-    response = generateAdvancedChatResponse(message, userExpenses);
+  if (process.env.NODE_ENV !== 'production') {
+    res.json(chatResponse);
   } else {
-    // Basic AI chat variant (default)
-    response = generateBasicChatResponse(message, userExpenses);
+    res.json({
+      response: chatResponse.response
+    });
   }
-
-  res.json({
-    response,
-    variant: variantName
-  });
 }
