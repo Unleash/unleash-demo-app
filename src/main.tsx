@@ -5,6 +5,7 @@ import './index.css'
 
 import { FlagProvider, IConfig } from '@unleash/proxy-client-react'
 import { getLocalContext } from './util/context.ts'
+import './utils/trackingService'
 
 const config: IConfig = {
   url:

@@ -3,6 +3,8 @@ import toast, { Toaster } from 'react-hot-toast'
 import { User } from '../components/User'
 import { ChatBotA } from '../components/chat/A/ChatBotA'
 import { ChatBotB } from '../components/chat/B/ChatBotB'
+import { trackSupportClick, trackSessionStart } from '../utils/trackingService'
+import React from "react";
 
 const MENU = ['Dashboard', 'Summary', 'Expenses', 'Wallet', 'Settings']
 
@@ -13,6 +15,12 @@ interface IAppLayoutProps {
 export const AppLayout = ({ children }: IAppLayoutProps) => {
   const { flagsReady, flagsError } = useFlagsStatus()
   const chatbotVariant = useVariant('fsDemoApp.chatbot')
+
+  React.useEffect(() => {
+    if (flagsReady) {
+      trackSessionStart(chatbotVariant.name || 'none')
+    }
+  }, [flagsReady, chatbotVariant.name])
 
   if (!flagsReady) {
     return null
@@ -28,6 +36,8 @@ export const AppLayout = ({ children }: IAppLayoutProps) => {
   }
 
   const onGetSupport = () => {
+    // Track support button click with chatbot variant
+    trackSupportClick(chatbotVariant.name || 'none')
     toast.success('Asked for support!')
   }
 
