@@ -1,8 +1,9 @@
 import Bowser from 'bowser'
 import { random } from './random.ts'
 import { filterOutFalsyFromObject } from './filter'
+import { IMutableContext } from '@unleash/proxy-client-react'
 
-export const getContext = () => {
+export const getLocalContext = (): IMutableContext => {
   let userId = localStorage.getItem('userId')
 
   if (!userId) {

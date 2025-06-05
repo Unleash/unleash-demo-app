@@ -1,8 +1,13 @@
 import { Icon } from '@iconify/react'
 import { toast } from 'react-hot-toast'
+import { getLocalContext } from '../util/context'
+import { useFlag } from '@unleash/proxy-client-react'
 
 export const User = () => {
-  const userId = localStorage.getItem('userId')
+  const showContext = useFlag('fsDemoApp.showContext')
+
+  const context = getLocalContext()
+  const { userId, properties } = context
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(userId!)
@@ -10,7 +15,7 @@ export const User = () => {
   }
 
   return (
-    <div className='flex flex-col items-center gap-2 w-full sm:max-w-xs'>
+    <div className='flex flex-col items-center gap-2 w-full sm:max-w-xs min-w-[230px]'>
       <img
         src='/unleash.svg'
         alt='User profile picture'
@@ -26,6 +31,11 @@ export const User = () => {
         {userId}
         <Icon icon='ic:round-content-copy' className='ml-2' />
       </button>
+      {showContext && (
+        <pre className='text-xs p-2 mt-2 rounded-md bg-slate-800 border border-slate-600'>
+          {JSON.stringify(properties, null, 2)}
+        </pre>
+      )}
     </div>
   )
 }
