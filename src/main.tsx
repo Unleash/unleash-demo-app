@@ -4,14 +4,7 @@ import { App } from './App.tsx'
 import './index.css'
 
 import { FlagProvider, IConfig } from '@unleash/proxy-client-react'
-import { random } from './util/random.ts'
-
-let userId = localStorage.getItem('userId')
-
-if (!userId) {
-  userId = random(100000000).toString()
-  localStorage.setItem('userId', userId)
-}
+import { getContext } from './util/context.ts'
 
 const config: IConfig = {
   url:
@@ -22,7 +15,7 @@ const config: IConfig = {
     'unleash-fullstack-demo-app:production.3416d5c4fad0c6eccd5093b19b1c94ade9c9c0cd81c2034704ef9165',
   refreshInterval: 2,
   appName: 'unleash-fullstack-demo-app',
-  context: { userId }
+  context: getContext()
 }
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
