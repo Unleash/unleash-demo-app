@@ -1,4 +1,5 @@
 import {useUnleashClient} from "@unleash/proxy-client-react";
+import { createUnleashContextHeaders } from "../../utils/createUnleashContextHeaders.ts";
 
 const ENDPOINT = 'api/chat'
 
@@ -11,31 +12,9 @@ export const useAIApi = () => {
   const client = useUnleashClient();
 
   const chat = async (message: string): Promise<ChatMessage> => {
-    // Get all context parameters from Unleash client
+    // Get all context parameters from Unleash client and create headers
     const context = client.getContext();
-
-    // Create headers for all context parameters
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-    };
-
-    // Add all context parameters as headers
-    Object.entries(context).forEach(([key, value]) => {
-      if (value !== undefined && value !== null) {
-        if (typeof value === 'object') {
-          // Handle properties object
-          if (key === 'properties') {
-            Object.entries(value).forEach(([propKey, propValue]) => {
-              if (propValue !== undefined && propValue !== null) {
-                headers[`Unleash-ContextParam-${propKey}`] = String(propValue);
-              }
-            });
-          }
-        } else {
-          headers[`Unleash-ContextParam-${key}`] = String(value);
-        }
-      }
-    });
+    const headers = createUnleashContextHeaders(context);
 
     const res = await fetch(ENDPOINT, {
       method: 'POST',
