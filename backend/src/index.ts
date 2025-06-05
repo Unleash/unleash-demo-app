@@ -6,6 +6,7 @@ import cors from 'cors'
 import { initialize } from 'unleash-client'
 import { handleChatRequest } from './chatService.js'
 import { metricsRegistry } from './metricsService.js'
+import { unleashContextMiddleware } from './contextMiddleware.js'
 
 // Get the directory name for ES modules
 const __filename = fileURLToPath(import.meta.url)
@@ -31,6 +32,9 @@ app.use(cors())
 // Parse JSON request bodies
 app.use(express.json())
 
+// Add Unleash context middleware
+app.use(unleashContextMiddleware)
+
 // Serve static files from the frontend build directory
 const distPath = path.join(__dirname, '../../dist')
 app.use(express.static(distPath))
@@ -51,7 +55,16 @@ app.post('/api/chat', handleChatRequest(unleash))
 // For any other GET request, send the index.html file
 // This enables client-side routing
 app.get('/api/flag/variant', (req, res) => {
-  res.json(unleash.getVariant('fsDemoApp.chatbot'))
+  // Log the context for debugging (remove in production)
+  if (req.flagContext && Object.keys(req.flagContext).length > 0) {
+    console.log('Using context for feature flag evaluation in /api/flag/variant:', req.flagContext);
+  }
+
+  // Use the flag context from the request if available
+  const variant = req.flagContext
+    ? unleash.getVariant('fsDemoApp.chatbot', req.flagContext)
+    : unleash.getVariant('fsDemoApp.chatbot')
+  res.json(variant)
 })
 
 // Metrics endpoint for Prometheus

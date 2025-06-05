@@ -9,7 +9,8 @@
     "start": "tsx src/index.ts",
     "dev": "tsx watch src/index.ts",
     "test-chat": "tsc && node test-chat-api.js",
-    "test-metrics": "tsc && node test-metrics.js"
+    "test-metrics": "tsc && node test-metrics.js",
+    "test-flag": "tsc && node test-flag-variant.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
