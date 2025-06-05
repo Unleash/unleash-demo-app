@@ -142,9 +142,10 @@ function simulateDelay(ms: number): Promise<void> {
 
 export const generateChatResponse =
   (unleash: Unleash) =>
-  async (message: string): Promise<ChatResponse> => {
-    // Get the variant from the feature flag
-    const variant = unleash.getVariant('fsDemoApp.chatbot')
+  async (message: string, context?: Record<string, string>): Promise<ChatResponse> => {
+    const variant = context
+      ? unleash.getVariant('fsDemoApp.chatbot', context)
+      : unleash.getVariant('fsDemoApp.chatbot')
     const variantName = variant.name || 'basic'
 
     // Set delay and cost based on variant
@@ -197,7 +198,7 @@ export const handleChatRequest =
       return
     }
 
-    const chatResponse = await generateChatResponse(unleash)(message)
+    const chatResponse = await generateChatResponse(unleash)(message, req.flagContext)
 
     // Record metrics for this chat query
     recordChatMetrics(

@@ -18,11 +18,23 @@ async function testMetrics() {
 
     for (const query of queries) {
       console.log(`Sending query: "${query}"`);
+      // Simulate a more complete context like what would come from client.getContext()
+      const headers = {
+        'Content-Type': 'application/json',
+        'Unleash-ContextParam-userId': '12345',
+        'Unleash-ContextParam-sessionId': '67890',
+        'Unleash-ContextParam-appName': 'unleash-fullstack-demo-app',
+        'Unleash-ContextParam-environment': 'development',
+        // Add some custom properties
+        'Unleash-ContextParam-userRole': 'admin',
+        'Unleash-ContextParam-deviceType': 'desktop'
+      };
+
+      console.log(`Sending query with context headers:`, headers);
+
       const response = await fetch('http://localhost:3000/api/chat', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers,
         body: JSON.stringify({ message: query }),
       });
 
