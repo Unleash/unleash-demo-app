@@ -144,9 +144,10 @@ export const generateChatResponse =
   (unleash: Unleash) =>
   async (message: string, context?: Record<string, string>): Promise<ChatResponse> => {
     const variant = context
-      ? unleash.getVariant('fsDemoApp.chatbot', context)
+      ? unleash.getVariant('fsDemoApp.chatbot', { properties: context})
       : unleash.getVariant('fsDemoApp.chatbot')
     const variantName = variant.name || 'basic'
+
 
     // Set delay and cost based on variant
     // Advanced: faster but more expensive
