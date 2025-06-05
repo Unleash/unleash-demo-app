@@ -26,9 +26,6 @@ export const User = () => {
         {userId}
         <Icon icon='ic:round-content-copy' className='ml-2' />
       </button>
-      <p className='text-xs text-center sm:text-sm'>
-        You will need the userId for some of the steps of the demo
-      </p>
     </div>
   )
 }

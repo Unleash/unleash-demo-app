@@ -4,7 +4,6 @@ import { ChatMessage, useAIApi } from '../../../hooks/api/useAIApi'
 import { AIChatHeader } from './AIChatHeader'
 import { AIChatInput } from './AIChatInput'
 import { AIChatMessage } from './AIChatMessage'
-import toast from 'react-hot-toast'
 
 type ScrollOptions = ScrollIntoViewOptions & {
   onlyIfAtEnd?: boolean
@@ -103,10 +102,8 @@ export const ChatBotB = () => {
         onClose={() => {
           setOpen(false)
         }}
-        onHelp={() => toast.success('Asked for support!')}
       />
       <div className='flex flex-col flex-1 p-4 pb-2 overflow-y-auto overflow-x-hidden bg-white'>
-        {/* <AIChatDisclaimer /> */}
         <AIChatMessage from='assistant'>
           Hello, how can I assist you?
         </AIChatMessage>

@@ -1,5 +1,5 @@
 import { useFlagsStatus, useVariant } from '@unleash/proxy-client-react'
-import { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 import { User } from '../components/User'
 import { ChatBotA } from '../components/chat/A/ChatBotA'
 import { ChatBotB } from '../components/chat/B/ChatBotB'
@@ -25,6 +25,10 @@ export const AppLayout = ({ children }: IAppLayoutProps) => {
         Something went wrong. Check the console for more information.
       </div>
     )
+  }
+
+  const onGetSupport = () => {
+    toast.success('Asked for support!')
   }
 
   return (
@@ -62,6 +66,14 @@ export const AppLayout = ({ children }: IAppLayoutProps) => {
               )
             })}
           </ul>
+        </div>
+        <div className='text-center mt-4 sm:absolute sm:bottom-6 sm:mt-auto'>
+          <button
+            className='text-sm text-white underline'
+            onClick={onGetSupport}
+          >
+            Get support
+          </button>
         </div>
       </div>
       <div className='bg-white text-slate-950 w-full p-6 rounded-t-3xl overflow-hidden flex flex-col gap-4 sm:rounded-3xl sm:gap-6'>
